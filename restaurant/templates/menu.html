@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>{{ restaurant.name }} - Menú</h1>
+<div class="menu-items">
+    {% for item in menu_items %}
+    <div class="menu-item">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <p>Precio: ${{ item.price }}</p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'add_to_cart' item.id %}">Añadir al Carrito</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
