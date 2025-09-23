@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Restaurantes Disponibles</h1>
+{% for restaurant in restaurants %}
+    <div>
+        <h3>{{ restaurant.name }}</h3>
+        <!-- Ejemplo con argumento -->
+        <a href="{% url 'restaurant:restaurant_list' %}">  <!-- CON namespace ✅ -->
+            Ver Menú
+        </a>
+    </div>
+{% endfor %}
+{% endblock %}

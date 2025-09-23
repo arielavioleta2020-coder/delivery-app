@@ -2,17 +2,6 @@
 
 {% block content %}
 <h1>Tu Carrito</h1>
-{% if cart %}
-    <ul>
-    {% for item_id, item in cart.items %}
-        <li>
-            {{ item.name }} - ${{ item.price }} x {{ item.quantity }}
-        </li>
-    {% endfor %}
-    </ul>
-    <p>Total: ${{ total }}</p>
-    <a href="{% url 'checkout' %}">Finalizar Compra</a>
-{% else %}
-    <p>Tu carrito está vacío</p>
-{% endif %}
+<a href="{% url 'restaurant:restaurant_list' %}">Seguir comprando</a>
+<a href="{% url 'orders:checkout' %}">Finalizar compra</a>
 {% endblock %}

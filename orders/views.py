@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from restaurant.models import MenuItem
+from .models import Cart, CartItem
 
 @login_required
 def add_to_cart(request, item_id):
@@ -42,6 +43,20 @@ def checkout(request):
     total = sum(float(item['price']) * item['quantity'] for item in cart.values())
     return render(request, 'orders/checkout.html', {'cart': cart, 'total': total})
 
+def remove_from_cart(request, item_id):
+    if request.user.is_authenticated:
+        cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+        cart_item.delete()
+          
+        cart = Cart.objects.get(user=request.user, is_active=True)
+        request.session['cart_items_count'] = cart.items.count()
+    return redirect('view_cart')
+
+def some_view(request):
+    # Tu lógica de vista aquí
+    cart = Cart.objects.get(user=request.user, is_active=True)
+    # ... resto del código
+    return render(request, 'template.html', context)
 
 # Create your views here.
 
