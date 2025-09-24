@@ -94,3 +94,22 @@ def register(request):
         'form': form,
         'cart_items_count': cart_items_count
     })
+def menu_restaurante(request, restaurante_id):
+    restaurante = get_object_or_404(Restaurant, id=restaurante_id)
+    menu_items = MenuItem.objects.filter(restaurant=restaurante, available=True)  # ¡AGREGAR ESTA LÍNEA!
+    
+    # Calcular items en el carrito
+    cart_items_count = 0
+    if request.user.is_authenticated:
+        try:
+            from orders.models import Cart
+            cart = Cart.objects.get(user=request.user, is_active=True)
+            cart_items_count = cart.items.count()
+        except:
+            pass
+    
+    return render(request, 'menu.html', {
+        'restaurante': restaurante,
+        'menu_items': menu_items,  # ¡PASAR LOS PRODUCTOS!
+        'cart_items_count': cart_items_count
+    })

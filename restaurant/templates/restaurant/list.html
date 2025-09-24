@@ -5,10 +5,8 @@
 {% for restaurant in restaurants %}
     <div>
         <h3>{{ restaurant.name }}</h3>
-        <!-- Ejemplo con argumento -->
-        <a href="{% url 'restaurant:restaurant_list' %}">  <!-- CON namespace ✅ -->
-            Ver Menú
-        </a>
+        <!-- USAR NAMESPACE -->
+        <a href="{% url 'restaurant:ver_menu' restaurant.id %}">Ver Menú</a>
     </div>
 {% endfor %}
 {% endblock %}

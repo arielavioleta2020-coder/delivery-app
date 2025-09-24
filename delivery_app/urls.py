@@ -25,9 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', restaurant_list, name='home'),
     path('restaurants/', include('restaurant.urls')),
-    path('orders/', include('orders.urls')),
-    
-    # URLs de autenticación - ¡ESTAS FALTABAN!
+    path('orders/', include('orders.urls')),  # ✅ Esta línea debe estar presente
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('accounts/register/', register, name='register'),
@@ -36,3 +34,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
